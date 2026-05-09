@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>East Go Drive – Fleet</title>
+  <title>Easy Go Drive – Fleet</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -122,7 +122,7 @@
 %>
 
 <nav>
-  <div class="logo">East Go<span> Drive</span></div>
+  <div class="logo">Easy Go<span> Drive</span></div>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
     <li><a href="vehicles" class="active">Vehicles</a></li>
@@ -139,7 +139,7 @@
 
 <div class="hero">
   <div class="breadcrumb">Home &rsaquo; <span>Vehicles</span></div>
-  <h1>Rent a Car in<br><em>3 Easy Steps</em></h1>
+  <h1>Rent Vehicles in<br><em>3 Easy Steps</em></h1>
   <p>Premium vehicles available for daily rental. Choose your ride and drive today.</p>
   <div class="steps">
     <div class="step"><div class="step-num">1</div><div class="step-text">Select your vehicle</div></div>
@@ -239,7 +239,7 @@
   </div>
 </div>
 
-<footer>&copy; 2026 <strong>East Go Drive</strong> Vehicle Rental System &mdash; All Rights Reserved</footer>
+<footer>&copy; 2026 <strong>Easy Go Drive</strong> Vehicle Rental System &mdash; All Rights Reserved</footer>
 
 <script>
   document.querySelectorAll('.car-img img').forEach(img => {
