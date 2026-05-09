@@ -4,408 +4,261 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveEase – Vehicle Management</title>
+  <title>DriveEase – Fleet</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --card: #1a1a24;
-      --border: #2a2a38;
-      --accent: #f0c040;
-      --accent2: #e05c2a;
-      --text: #f0ede8;
-      --muted: #7a7a8a;
-      --danger: #e04040;
-      --success: #40c080;
+      --bg: #0a0a0f; --surface: #13131a; --card: #1a1a24;
+      --border: #2a2a38; --accent: #f0c040; --text: #f0ede8;
+      --muted: #7a7a8a; --danger: #e04040; --success: #40c080;
     }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      min-height: 100vh;
-    }
-
-    /* Top nav */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 68px; background: var(--surface);
+      border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
     }
-
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 22px;
-      letter-spacing: -0.5px;
-    }
-
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -1px; }
     .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 
-    .nav-badge {
-      background: var(--accent);
-      color: #000;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Hero strip */
     .hero {
-      background: linear-gradient(135deg, #13131a 0%, #1e1a2e 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 48px 48px 32px;
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(160deg, #0f0f1a 0%, #1a1428 60%, #0a0a0f 100%);
+      padding: 64px 48px 48px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
     }
-
-    .hero::before {
-      content: 'FLEET';
-      position: absolute;
-      right: 40px;
-      top: -10px;
-      font-family: 'Syne', sans-serif;
-      font-size: 120px;
-      font-weight: 800;
-      color: #ffffff06;
-      letter-spacing: -4px;
-      pointer-events: none;
+    .hero::after {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, #f0c04018 0%, transparent 70%); pointer-events: none;
     }
+    .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .breadcrumb span { color: var(--accent); }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 12px; }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero p { color: var(--muted); font-size: 16px; max-width: 500px; margin-bottom: 36px; }
+    .steps { display: flex; gap: 32px; }
+    .step { display: flex; align-items: center; gap: 12px; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-text { font-size: 13px; color: var(--muted); max-width: 120px; line-height: 1.4; }
 
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 6px;
-    }
+    .stats-bar { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 48px; }
+    .stat-item { padding: 20px 40px 20px 0; margin-right: 40px; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .hero h1 span { color: var(--accent); }
+    .main { padding: 48px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+    .section-header h2 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; }
+    .section-header h2 span { color: var(--accent); }
+    .btn-add { display: flex; align-items: center; gap: 8px; background: var(--accent); color: #000; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+    .btn-add:hover { background: #ffd060; transform: translateY(-2px); box-shadow: 0 8px 24px #f0c04030; }
 
-    .hero p {
-      color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 28px;
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 
-    /* Stats row */
-    .stats {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 0;
-    }
+    .vehicle-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+    .vehicle-card:hover { border-color: #f0c04040; transform: translateY(-4px); box-shadow: 0 16px 40px #00000040; }
 
-    .stat {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 24px;
-      min-width: 130px;
-    }
+    .car-img { width: 100%; height: 200px; position: relative; overflow: hidden; background: #111118; }
+    .car-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+    .vehicle-card:hover .car-img img { transform: scale(1.05); }
+    .car-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, #1a1a24 0%, transparent 60%); pointer-events: none; }
+    .car-fallback { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: 72px; background: linear-gradient(135deg, #1f1f2e, #151520); }
 
-    .stat-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--accent);
-    }
+    .car-type-badge { position: absolute; top: 12px; left: 12px; background: #000000bb; backdrop-filter: blur(8px); border: 1px solid var(--border); color: var(--text); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; z-index: 2; }
+    .avail-badge { position: absolute; top: 12px; right: 12px; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; z-index: 2; }
+    .avail-yes { background: #40c08025; border: 1px solid #40c08060; color: var(--success); }
+    .avail-no  { background: #e0404025; border: 1px solid #e0404060; color: var(--danger); }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .card-body { padding: 20px; }
+    .car-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .car-id { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .car-id strong { color: var(--accent); }
+    .car-meta { display: flex; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .meta-item { text-align: center; }
+    .meta-val { font-size: 13px; font-weight: 600; }
+    .meta-key { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .price { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--accent); }
+    .price-label { font-size: 11px; color: var(--muted); }
 
-    /* Main content */
-    .main { padding: 36px 48px; }
+    .card-actions { display: flex; gap: 8px; }
+    .btn-edit { flex: 1; padding: 10px; background: #2a2a38; border: 1px solid var(--border); color: var(--text); border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center; transition: all 0.15s; }
+    .btn-edit:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-delete { flex: 1; padding: 10px; background: #e0404015; border: 1px solid #e0404030; color: var(--danger); border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center; transition: all 0.15s; }
+    .btn-delete:hover { background: #e0404025; }
 
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-    }
+    .empty { grid-column: 1/-1; text-align: center; padding: 80px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; }
+    .empty-icon { font-size: 64px; margin-bottom: 16px; }
+    .empty h3 { font-family: 'Syne', sans-serif; font-size: 20px; margin-bottom: 8px; }
 
-    .toolbar h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .btn-add {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #000;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 10px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-add:hover {
-      background: #ffd060;
-      transform: translateY(-1px);
-    }
-
-    /* Table */
-    .table-wrap {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    thead {
-      background: #111118;
-      border-bottom: 1px solid var(--border);
-    }
-
-    thead th {
-      padding: 14px 20px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
-
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: #1f1f2e; }
-
-    tbody td {
-      padding: 16px 20px;
-      font-size: 14px;
-      vertical-align: middle;
-    }
-
-    .id-badge {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-      background: #f0c04012;
-      border: 1px solid #f0c04030;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    .type-pill {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: #2a2a38;
-      color: var(--text);
-    }
-
-    .avail-yes {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--success);
-      background: #40c08015;
-      border: 1px solid #40c08030;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    .avail-no {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--danger);
-      background: #e0404015;
-      border: 1px solid #e0404030;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    .price {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .actions { display: flex; gap: 8px; }
-
-    .btn-edit {
-      padding: 6px 16px;
-      background: #2a2a38;
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 6px;
-      font-size: 13px;
-      text-decoration: none;
-      transition: all 0.15s;
-      cursor: pointer;
-    }
-
-    .btn-edit:hover {
-      background: #353548;
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-delete {
-      padding: 6px 16px;
-      background: #e0404015;
-      border: 1px solid #e0404030;
-      color: var(--danger);
-      border-radius: 6px;
-      font-size: 13px;
-      text-decoration: none;
-      transition: all 0.15s;
-      cursor: pointer;
-    }
-
-    .btn-delete:hover {
-      background: #e0404030;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--muted);
-    }
-
-    .empty-icon { font-size: 48px; margin-bottom: 12px; }
-    .empty p { font-size: 15px; }
+    footer { margin-top: 80px; padding: 32px 48px; border-top: 1px solid var(--border); background: var(--surface); text-align: center; color: var(--muted); font-size: 13px; }
+    footer strong { color: var(--accent); }
   </style>
 </head>
 <body>
 
+<%
+  List<Vehicle> vehicles = (List<Vehicle>) request.getAttribute("vehicles");
+  int total = vehicles != null ? vehicles.size() : 0;
+  int available = 0;
+  if (vehicles != null) for (Vehicle v : vehicles) if (v.isAvailable()) available++;
+  int rented = total - available;
+
+  // Car type specific images
+  String[] carImgs = {
+    "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80",
+    "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80",
+    "https://images.unsplash.com/photo-1542362567-b07e54358753?w=600&q=80",
+    "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80",
+    "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80"
+  };
+%>
+
 <nav>
   <div class="logo">Drive<span>Ease</span></div>
-  <span class="nav-badge">VEHICLE MANAGEMENT</span>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="vehicles" class="active">Cars</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
 </nav>
 
 <div class="hero">
-  <h1>Fleet <span>Dashboard</span></h1>
-  <p>Manage your entire vehicle inventory from one place</p>
-
-  <%
-    List<Vehicle> vehicles = (List<Vehicle>) request.getAttribute("vehicles");
-    int total = vehicles != null ? vehicles.size() : 0;
-    int available = 0;
-    if (vehicles != null) {
-      for (Vehicle v : vehicles) {
-        if (v.isAvailable()) available++;
-      }
-    }
-    int rented = total - available;
-  %>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-val"><%= total %></div>
-      <div class="stat-label">Total Vehicles</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val"><%= available %></div>
-      <div class="stat-label">Available</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val"><%= rented %></div>
-      <div class="stat-label">Rented Out</div>
-    </div>
+  <div class="breadcrumb">Home &rsaquo; <span>Cars</span></div>
+  <h1>Rent a Car in<br><em>3 Easy Steps</em></h1>
+  <p>Premium vehicles available for daily rental. Choose your ride and drive today.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Select your vehicle</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Complete booking form</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Collect &amp; drive</div></div>
   </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num"><%= total %></div><div class="stat-label">Total Fleet</div></div>
+  <div class="stat-item"><div class="stat-num"><%= available %></div><div class="stat-label">Available Now</div></div>
+  <div class="stat-item"><div class="stat-num"><%= rented %></div><div class="stat-label">Currently Rented</div></div>
 </div>
 
 <div class="main">
-  <div class="toolbar">
-    <h2>All Vehicles</h2>
-    <a href="addVehicle.jsp" class="btn-add">&#43; Add New Vehicle</a>
+  <div class="section-header">
+    <h2>Our <span>Fleet</span></h2>
+    <a href="addVehicle.jsp" class="btn-add">&#43; Add Vehicle</a>
   </div>
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Brand</th>
-          <th>Model</th>
-          <th>Type</th>
-          <th>Price / Day</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <%
-        if (vehicles != null && !vehicles.isEmpty()) {
-          for (Vehicle v : vehicles) {
-      %>
-        <tr>
-          <td><span class="id-badge"><%= v.getVehicleId() %></span></td>
-          <td><strong><%= v.getBrand() %></strong></td>
-          <td><%= v.getModel() %></td>
-          <td><span class="type-pill"><%= v.getType() %></span></td>
-          <td><span class="price">Rs. <%= v.getPricePerDay() %></span></td>
-          <td>
-            <% if (v.isAvailable()) { %>
-              <span class="avail-yes">&#9679; Available</span>
-            <% } else { %>
-              <span class="avail-no">&#9679; Rented</span>
-            <% } %>
-          </td>
-          <td>
-            <div class="actions">
-              <a href="updateVehicle.jsp?vehicleId=<%= v.getVehicleId() %>&brand=<%= v.getBrand() %>&model=<%= v.getModel() %>&type=<%= v.getType() %>&price=<%= v.getPricePerDay() %>&available=<%= v.isAvailable() %>" class="btn-edit">Edit</a>
-              <a href="deleteVehicle?vehicleId=<%= v.getVehicleId() %>" class="btn-delete" onclick="return confirm('Delete this vehicle?')">Delete</a>
-            </div>
-          </td>
-        </tr>
-      <%
-          }
+  <div class="grid">
+  <%
+    if (vehicles != null && !vehicles.isEmpty()) {
+      int carIndex = 0;
+      for (Vehicle v : vehicles) {
+
+        // Pick image based on type
+        String img;
+        String emoji;
+        String t = v.getType().toLowerCase();
+
+        if (t.equals("van")) {
+          img = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80";
+          emoji = "🚐";
+        } else if (t.equals("suv")) {
+          img = "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80";
+          emoji = "🚙";
+        } else if (t.equals("bike")) {
+          img = "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&q=80";
+          emoji = "🏍️";
+        } else if (t.equals("bus")) {
+          img = "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&q=80";
+          emoji = "🚌";
         } else {
-      %>
-        <tr>
-          <td colspan="7">
-            <div class="empty">
-              <div class="empty-icon">&#128663;</div>
-              <p>No vehicles found. Add your first vehicle!</p>
-            </div>
-          </td>
-        </tr>
-      <% } %>
-      </tbody>
-    </table>
+          // Car - rotate through car images
+          img = carImgs[carIndex % carImgs.length];
+          carIndex++;
+          emoji = "🚗";
+        }
+  %>
+    <div class="vehicle-card">
+      <div class="car-img">
+        <img
+          src="<%= img %>"
+          alt="<%= v.getBrand() %> <%= v.getModel() %>"
+          loading="lazy"
+          onerror="this.style.display='none'; this.parentElement.querySelector('.car-img-overlay').style.display='none'; this.parentElement.querySelector('.car-fallback').style.display='flex';"
+        >
+        <div class="car-img-overlay"></div>
+        <div class="car-fallback"><%= emoji %></div>
+        <span class="car-type-badge"><%= v.getType() %></span>
+        <% if (v.isAvailable()) { %>
+          <span class="avail-badge avail-yes">&#9679; Available</span>
+        <% } else { %>
+          <span class="avail-badge avail-no">&#9679; Rented</span>
+        <% } %>
+      </div>
+      <div class="card-body">
+        <div class="car-name"><%= v.getBrand() %> <%= v.getModel() %></div>
+        <div class="car-id">Vehicle ID: <strong><%= v.getVehicleId() %></strong></div>
+        <div class="car-meta">
+          <div class="meta-item">
+            <div class="meta-val"><%= v.getType() %></div>
+            <div class="meta-key">Type</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-val">Automatic</div>
+            <div class="meta-key">Gearbox</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-val">Petrol</div>
+            <div class="meta-key">Fuel</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-val">2024</div>
+            <div class="meta-key">Year</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div>
+            <div class="price">Rs. <%= v.getPricePerDay() %></div>
+            <div class="price-label">per day</div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a href="updateVehicle.jsp?vehicleId=<%= v.getVehicleId() %>&brand=<%= v.getBrand() %>&model=<%= v.getModel() %>&type=<%= v.getType() %>&price=<%= v.getPricePerDay() %>&available=<%= v.isAvailable() %>" class="btn-edit">&#9998; Edit</a>
+          <a href="deleteVehicle?vehicleId=<%= v.getVehicleId() %>" class="btn-delete" onclick="return confirm('Delete this vehicle?')">&#128465; Delete</a>
+        </div>
+      </div>
+    </div>
+  <%
+      }
+    } else {
+  %>
+    <div class="empty">
+      <div class="empty-icon">🚗</div>
+      <h3>No vehicles in fleet</h3>
+      <p style="color:var(--muted); margin-bottom:24px">Add your first vehicle to get started</p>
+      <a href="addVehicle.jsp" class="btn-add" style="display:inline-flex">&#43; Add First Vehicle</a>
+    </div>
+  <% } %>
   </div>
 </div>
+
+<footer>&copy; 2026 <strong>DriveEase</strong> Vehicle Rental System &mdash; All Rights Reserved</footer>
+
+<script>
+  document.querySelectorAll('.car-img img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      const overlay = this.parentElement.querySelector('.car-img-overlay');
+      const fallback = this.parentElement.querySelector('.car-fallback');
+      if (overlay) overlay.style.display = 'none';
+      if (fallback) fallback.style.display = 'flex';
+    });
+  });
+</script>
 
 </body>
 </html>
