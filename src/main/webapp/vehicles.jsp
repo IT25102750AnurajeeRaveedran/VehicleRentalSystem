@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveEase – Fleet</title>
+  <title>East Go Drive – Fleet</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,9 +22,11 @@
     }
     .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -1px; }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-user { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 13px; color: var(--accent); }
+    .nav-logout { color: var(--danger) !important; }
 
     .hero {
       background: linear-gradient(160deg, #0f0f1a 0%, #1a1428 60%, #0a0a0f 100%);
@@ -108,8 +110,8 @@
   int available = 0;
   if (vehicles != null) for (Vehicle v : vehicles) if (v.isAvailable()) available++;
   int rented = total - available;
+  String userName = (String) session.getAttribute("userName");
 
-  // Car type specific images
   String[] carImgs = {
     "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80",
     "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80",
@@ -120,17 +122,23 @@
 %>
 
 <nav>
-  <div class="logo">Drive<span>Ease</span></div>
+  <div class="logo">East Go<span> Drive</span></div>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
-    <li><a href="vehicles" class="active">Cars</a></li>
+    <li><a href="vehicles" class="active">Vehicles</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#">Contact</a></li>
+    <% if (userName != null) { %>
+      <li><span class="nav-user">👤 <%= userName %></span></li>
+      <li><a href="logout" class="nav-logout">Logout</a></li>
+    <% } else { %>
+      <li><a href="login.jsp" style="color:var(--accent);">Login</a></li>
+    <% } %>
   </ul>
 </nav>
 
 <div class="hero">
-  <div class="breadcrumb">Home &rsaquo; <span>Cars</span></div>
+  <div class="breadcrumb">Home &rsaquo; <span>Vehicles</span></div>
   <h1>Rent a Car in<br><em>3 Easy Steps</em></h1>
   <p>Premium vehicles available for daily rental. Choose your ride and drive today.</p>
   <div class="steps">
@@ -157,14 +165,12 @@
     if (vehicles != null && !vehicles.isEmpty()) {
       int carIndex = 0;
       for (Vehicle v : vehicles) {
-
-        // Pick image based on type
         String img;
         String emoji;
         String t = v.getType().toLowerCase();
 
         if (t.equals("van")) {
-          img = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80";
+          img = "https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600&q=80";
           emoji = "🚐";
         } else if (t.equals("suv")) {
           img = "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80";
@@ -176,7 +182,6 @@
           img = "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&q=80";
           emoji = "🚌";
         } else {
-          // Car - rotate through car images
           img = carImgs[carIndex % carImgs.length];
           carIndex++;
           emoji = "🚗";
@@ -203,22 +208,10 @@
         <div class="car-name"><%= v.getBrand() %> <%= v.getModel() %></div>
         <div class="car-id">Vehicle ID: <strong><%= v.getVehicleId() %></strong></div>
         <div class="car-meta">
-          <div class="meta-item">
-            <div class="meta-val"><%= v.getType() %></div>
-            <div class="meta-key">Type</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-val">Automatic</div>
-            <div class="meta-key">Gearbox</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-val">Petrol</div>
-            <div class="meta-key">Fuel</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-val">2024</div>
-            <div class="meta-key">Year</div>
-          </div>
+          <div class="meta-item"><div class="meta-val"><%= v.getType() %></div><div class="meta-key">Type</div></div>
+          <div class="meta-item"><div class="meta-val">Automatic</div><div class="meta-key">Gearbox</div></div>
+          <div class="meta-item"><div class="meta-val">Petrol</div><div class="meta-key">Fuel</div></div>
+          <div class="meta-item"><div class="meta-val">2024</div><div class="meta-key">Year</div></div>
         </div>
         <div class="price-row">
           <div>
@@ -246,7 +239,7 @@
   </div>
 </div>
 
-<footer>&copy; 2026 <strong>DriveEase</strong> Vehicle Rental System &mdash; All Rights Reserved</footer>
+<footer>&copy; 2026 <strong>East Go Drive</strong> Vehicle Rental System &mdash; All Rights Reserved</footer>
 
 <script>
   document.querySelectorAll('.car-img img').forEach(img => {
