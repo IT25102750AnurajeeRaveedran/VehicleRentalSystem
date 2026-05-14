@@ -43,11 +43,9 @@ public class AdminDashboardServlet extends HttpServlet {
         int totalVehicles = vehicles.size();
         int totalBookings = bookings.size();
         int activeBookings = 0;
-        double totalRevenue = 0;
 
         for (Booking b : bookings) {
             if ("active".equals(b.getStatus())) activeBookings++;
-            if (!"cancelled".equals(b.getStatus())) totalRevenue += b.getTotalPrice();
         }
 
         int availableVehicles = 0;
@@ -59,7 +57,6 @@ public class AdminDashboardServlet extends HttpServlet {
         request.setAttribute("totalVehicles",    totalVehicles);
         request.setAttribute("totalBookings",    totalBookings);
         request.setAttribute("activeBookings",   activeBookings);
-        request.setAttribute("totalRevenue",     totalRevenue);
         request.setAttribute("availableVehicles",availableVehicles);
         request.setAttribute("recentBookings",   bookings);
         request.setAttribute("adminUser",        user);

@@ -8,7 +8,7 @@ import java.util.List;
 public class BookingFileHandler {
 
     private static final String FILE_PATH =
-            System.getProperty("user.home") + "/bookings.txt";
+            DbFileUtil.getPath("bookings.txt");
 
     public static List<Booking> readAll() {
         List<Booking> bookings = new ArrayList<>();

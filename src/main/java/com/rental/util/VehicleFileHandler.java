@@ -8,7 +8,7 @@ import java.util.List;
 public class VehicleFileHandler {
 
     private static final String FILE_PATH =
-            System.getProperty("user.home") + "/vehicles.txt";
+            DbFileUtil.getPath("vehicles.txt");
 
     public static List<Vehicle> readAll() {
         List<Vehicle> vehicles = new ArrayList<>();

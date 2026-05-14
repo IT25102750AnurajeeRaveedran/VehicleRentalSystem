@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveEase – Register</title>
+  <title>Easy Go – Register</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,7 +42,7 @@
 </head>
 <body>
 <nav>
-  <a href="#" class="logo">Drive<span>Ease</span></a>
+  <a href="#" class="logo">Easy <span>Go</span></a>
   <a href="login.jsp" class="nav-link">Already have an account? Sign In</a>
 </nav>
 
@@ -50,7 +50,7 @@
   <div class="card">
     <div class="card-header">
       <h2>Create <span>Account</span></h2>
-      <p>Join DriveEase and start renting vehicles today</p>
+      <p>Join Easy Go and start renting vehicles today</p>
     </div>
 
     <% String error = request.getParameter("error"); %>

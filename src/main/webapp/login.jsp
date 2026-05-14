@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveEase – Login</title>
+  <title>Easy Go – Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,14 +52,14 @@
 </head>
 <body>
 <nav>
-  <a href="#" class="logo">Drive<span>Ease</span></a>
+  <a href="#" class="logo">Easy <span>Go</span></a>
   <a href="register.jsp" class="nav-link">Create Account</a>
 </nav>
 
 <div class="page">
   <div class="container">
     <div class="left-panel">
-      <h2>Welcome<br>Back to<br><span>DriveEase</span></h2>
+      <h2>Welcome<br>Back to<br><span>Easy Go</span></h2>
       <p>Your premium vehicle rental platform. Access your account to manage bookings and explore our fleet.</p>
       <div class="feature"><div class="feature-dot"></div><span>Wide range of vehicles</span></div>
       <div class="feature"><div class="feature-dot"></div><span>Easy online booking</span></div>

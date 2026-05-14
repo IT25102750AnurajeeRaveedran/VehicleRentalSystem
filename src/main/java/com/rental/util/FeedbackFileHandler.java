@@ -8,7 +8,7 @@ import java.util.List;
 public class FeedbackFileHandler {
 
     private static final String FILE_PATH =
-            System.getProperty("user.home") + "/feedback.txt";
+            DbFileUtil.getPath("feedback.txt");
 
     public static List<Feedback> readAll() {
         List<Feedback> list = new ArrayList<>();

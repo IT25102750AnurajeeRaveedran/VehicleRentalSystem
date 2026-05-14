@@ -1,0 +1,9 @@
+VEE355,Toyota,Corolla,Car,5500.0,false
+VD225C,Honda,Civic,Car,6500.0,false
+V8AD5C,Suzuki,Alto,Car,3200.0,true
+V840CD,Toyota,RAV4,Car,8000.0,false
+VCBF37,Toyota,Prado,SUV,18000.0,false
+V7E461,Yamaha,FZ,Bike,1800.0,true
+VE3316,Ashok Leyland,Viking,Car,30000.0,true
+V1F8E4,Honda,CB150,Bike,1500.0,true
+VB68B8,Bajaj,v,Car,1200.0,true

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveEase – Forgot Password</title>
+  <title>Easy Go – Forgot Password</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,7 +44,7 @@
 </head>
 <body>
 <nav>
-  <a href="#" class="logo">Drive<span>Ease</span></a>
+  <a href="#" class="logo">Easy <span>Go</span></a>
   <a href="login.jsp" class="nav-link">&#8592; Back to Login</a>
 </nav>
 

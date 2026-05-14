@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DriveEase – Add Vehicle</title>
+  <title>Easy Go – Add Vehicle</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,7 +52,7 @@
 </head>
 <body>
 <nav>
-  <div class="logo">Drive<span>Ease</span></div>
+  <div class="logo">Easy <span>Go</span></div>
 </nav>
 <div class="page">
   <a href="vehicles" class="back">&#8592; Back to Fleet</a>

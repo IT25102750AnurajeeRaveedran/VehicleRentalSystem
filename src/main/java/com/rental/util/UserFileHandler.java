@@ -8,7 +8,7 @@ import java.util.List;
 public class UserFileHandler {
 
     private static final String FILE_PATH =
-            System.getProperty("user.home") + "/users.txt";
+            DbFileUtil.getPath("users.txt");
 
     public static List<User> readAll() {
         List<User> users = new ArrayList<>();
