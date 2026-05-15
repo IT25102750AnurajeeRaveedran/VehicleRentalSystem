@@ -276,29 +276,52 @@
 <body>
 <%
 	String base = request.getContextPath();
+	Object logged = session.getAttribute("loggedUser");
+	String userName = (String) session.getAttribute("userName");
+	String userRole = (String) session.getAttribute("userRole");
+	boolean isLogged = logged != null;
+	int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
 %>
+
 <div class="shell">
 	<nav>
 		<a class="brand" href="<%= base %>/">Easy <span>Go</span></a>
 		<div class="nav-links">
 			<a class="nav-link" href="<%= base %>/vehicles">Browse</a>
-			<a class="nav-link" href="<%= base %>/login.jsp">Login</a>
-			<a class="nav-link" href="<%= base %>/register.jsp">Register</a>
+			<a class="nav-link" href="<%= base %>/about.jsp">About</a>
+			<a class="nav-link" href="<%= base %>/contact.jsp">Contact</a>
+			<% if (isLogged) { %>
+				<% if ("ADMIN".equalsIgnoreCase(userRole)) { %>
+					<a class="nav-link" href="<%= base %>/adminDashboard.jsp">Admin</a>
+				<% } %>
+				<a class="nav-link" href="<%= base %>/userDashboard.jsp">Dashboard</a>
+				<a class="nav-link" href="<%= base %>/myBookings.jsp">My Bookings</a>
+				<a class="nav-link" href="<%= base %>/logout">Logout</a>
+				<span class="nav-link" style="font-weight:700;color:var(--accent);">Hi, <%= (userName!=null?userName:"User") %></span>
+			<% } else { %>
+				<a class="nav-link" href="<%= base %>/login.jsp">Login</a>
+				<a class="nav-link" href="<%= base %>/register.jsp">Register</a>
+			<% } %>
 		</div>
 	</nav>
 
 	<section class="hero">
 		<div class="hero-card">
-			<div class="badge">Premium Rental Experience</div>
-			<h1>Rent smarter with <span>Easy Go</span></h1>
+			<div class="badge">Trusted rentals • Transparent pricing</div>
+			<h1>Find reliable rides with <span>Easy Go</span></h1>
 			<p>
-				Discover a simple, modern way to book vehicles, manage bookings, and keep your rental
-				history in one place.
+				A modern vehicle rental platform built for transparency and convenience. Browse curated
+				cars, compare prices, and manage bookings from your dashboard.
 			</p>
 			<div class="actions">
 				<a class="btn btn-primary" href="<%= base %>/vehicles">Browse Vehicles</a>
-				<a class="btn btn-secondary" href="<%= base %>/login.jsp">Login</a>
-				<a class="btn btn-outline" href="<%= base %>/register.jsp">Create Account</a>
+				<% if (isLogged) { %>
+					<a class="btn btn-secondary" href="<%= base %>/myBookings.jsp">My Bookings</a>
+				<% } else { %>
+					<a class="btn btn-secondary" href="<%= base %>/login.jsp">Login</a>
+					<a class="btn btn-outline" href="<%= base %>/register.jsp">Create Account</a>
+				<% } %>
+				<a class="btn btn-outline" href="<%= base %>/about.jsp">Learn more</a>
 			</div>
 
 			<div class="stats">
@@ -307,12 +330,12 @@
 					<span>Support ready anytime</span>
 				</div>
 				<div class="stat">
-					<strong>Fast</strong>
-					<span>Simple booking flow</span>
+					<strong>Instant</strong>
+					<span>Quick availability checks</span>
 				</div>
 				<div class="stat">
-					<strong>Safe</strong>
-					<span>Reliable rental records</span>
+					<strong>Secure</strong>
+					<span>Safe user data handling</span>
 				</div>
 			</div>
 		</div>
@@ -353,15 +376,20 @@
 	<section class="cta">
 		<div>
 			<h2>Ready to start your ride?</h2>
-			<p>Log in, register, or explore the fleet right away from your new home page.</p>
+			<p>Join thousands of customers who use Easy Go for quick, reliable rentals.</p>
 		</div>
 		<div class="actions">
 			<a class="btn btn-primary" href="<%= base %>/vehicles">Explore Now</a>
-			<a class="btn btn-secondary" href="<%= base %>/login.jsp">Sign In</a>
+			<% if (isLogged) { %>
+				<a class="btn btn-secondary" href="<%= base %>/userDashboard.jsp">Your Dashboard</a>
+			<% } else { %>
+				<a class="btn btn-secondary" href="<%= base %>/login.jsp">Sign In</a>
+			<% } %>
+			<a class="btn btn-outline" href="<%= base %>/contact.jsp">Contact</a>
 		</div>
 	</section>
 
-	<div class="footer-note">Open <strong>http://localhost:8080/</strong> to land here first.</div>
+	<div class="footer-note">© <%= year %> Easy Go — Visit <strong><%= request.getServerName()%>:<%= request.getServerPort()%><%= base %></strong></div>
 </div>
 </body>
 </html>

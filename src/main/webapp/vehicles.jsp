@@ -91,6 +91,7 @@
   if (vehicles != null) for (Vehicle v : vehicles) if (v.isAvailable()) available++;
   int rented = total - available;
   String userName = (String) session.getAttribute("userName");
+  String base = request.getContextPath();
   String[] carImgs = {
     "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80",
     "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80",
@@ -103,12 +104,13 @@
 <nav>
   <div class="logo">Easy Go<span> Drive</span></div>
   <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="vehicles" class="active">Vehicles</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="<%= base %>/">Home</a></li>
+    <li><a href="<%= base %>/vehicles" class="active">Vehicles</a></li>
+    <li><a href="<%= base %>/about.jsp">About</a></li>
+    <li><a href="<%= base %>/contact.jsp">Contact</a></li>
     <% if (userName != null) { %>
       <li><a href="myBookings">My Bookings</a></li>
+      <li><a href="chat">Support</a></li>
       <li><a href="userProfile">My Profile</a></li>
       <li><span class="nav-user">👤 <%= userName %></span></li>
       <li><a href="logout" class="nav-logout">Logout</a></li>
@@ -219,5 +221,6 @@
     });
   });
 </script>
+
 </body>
 </html>

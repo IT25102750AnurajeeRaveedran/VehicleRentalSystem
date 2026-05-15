@@ -143,8 +143,8 @@
       <input type="text" placeholder="Search users, bookings, vehicles...">
     </div>
     <div class="top-actions">
-      <button class="icon-btn" title="Notifications">🔔</button>
-      <button class="icon-btn" title="Support">💬</button>
+      <a class="icon-btn" href="adminNotifications" title="Notifications">🔔</a>
+      <a class="icon-btn" href="adminChat" title="Support">💬</a>
       <div class="profile">
         <div class="admin-avatar"><%= initials.toUpperCase() %></div>
         <div class="name"><%= adminUser.getFullName().split(" ")[0] %></div>
